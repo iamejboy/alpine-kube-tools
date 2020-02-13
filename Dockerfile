@@ -1,8 +1,16 @@
+FROM golang:1.13 AS builder
+
+RUN git clone https://github.com/rakyll/hey.git
+RUN GOOS=linux GOARCH=amd64 CGO_ENABLED=0 \
+    go get -u github.com/rakyll/hey
+
 FROM alpine
 
 MAINTAINER edwin jay mendiguarin
 
 ENV KUSTOMIZE_VERSION 3.4.0
+
+COPY --from=builder /go/bin/hey /usr/local/bin
 
 RUN apk add --no-cache bash gawk sed grep bc coreutils
 RUN apk update \
