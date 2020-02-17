@@ -9,6 +9,7 @@ FROM alpine
 MAINTAINER edwin jay mendiguarin
 
 ENV KUSTOMIZE_VERSION 3.4.0
+ENV YQ_VERSION 3.1.1
 
 COPY --from=builder /go/bin/hey /usr/local/bin
 
@@ -23,5 +24,8 @@ RUN wget --content-disposition https://github.com/kubernetes-sigs/kustomize/rele
     && tar -xzvf kustomize_v${KUSTOMIZE_VERSION}_linux_amd64.tar.gz -C /usr/local/bin/ \
     && chmod +x /usr/local/bin/kustomize \
     && rm kustomize_v${KUSTOMIZE_VERSION}_linux_amd64.tar.gz
+RUN wget --content-disposition https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_linux_amd64 \
+    && chmod +x ./yq_linux_amd64 \
+    && mv ./yq_linux_amd64 /usr/local/bin/yq
 
 CMD ["bash"]
