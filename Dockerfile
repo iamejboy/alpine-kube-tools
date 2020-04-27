@@ -13,10 +13,12 @@ ENV YQ_VERSION 3.1.1
 
 COPY --from=builder /go/bin/hey /usr/local/bin
 
-RUN apk add --no-cache bash gawk sed grep bc coreutils
 RUN apk update \
+    && apk add --no-cache bash gawk sed grep bc coreutils \
     && apk add --no-cache curl \
-    && apk add wget
+    && apk add --no-cache wget \
+    && apk add --no-cache git \
+    && apk add --no-cache openssh-client
 RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl \
     && chmod +x ./kubectl \
     && mv ./kubectl /usr/local/bin
