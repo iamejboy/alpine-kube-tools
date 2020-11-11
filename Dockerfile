@@ -8,7 +8,7 @@ FROM alpine
 
 MAINTAINER edwin jay mendiguarin
 
-ENV KUSTOMIZE_VERSION 3.4.0
+ENV KUSTOMIZE_VERSION 3.8.6
 ENV YQ_VERSION 3.1.1
 
 COPY --from=builder /go/bin/hey /usr/local/bin
